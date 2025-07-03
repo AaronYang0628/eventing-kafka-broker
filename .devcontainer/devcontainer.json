@@ -1,0 +1,28 @@
+{
+  "name": "Go & Java DevContainer",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "mounts": [
+    "source=/root/.kube/config,target=/root/.kube/config,type=bind",
+    "source=/root/.minikube/profiles/minikube/client.crt,target=/root/.minikube/profiles/minikube/client.crt,type=bind",
+    "source=/root/.minikube/profiles/minikube/client.key,target=/root/.minikube/profiles/minikube/client.key,type=bind",
+    "source=/root/.minikube/ca.crt,target=/root/.minikube/ca.crt,type=bind"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "golang.go",
+        "vscjava.vscode-java-pack",
+        "redhat.java",
+        "vscjava.vscode-maven",
+        "alibaba-cloud.tongyi-lingma",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-java-dependency",
+        "vscjava.vscode-java-test"
+      ]
+    }
+  },
+  "remoteUser": "root",
+  "postCreateCommand": "go version && java -version && mvn -v"
+}

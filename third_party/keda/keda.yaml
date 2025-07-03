@@ -9407,7 +9407,7 @@ spec:
           value: ""
         - name: KEDA_HTTP_DEFAULT_TIMEOUT
           value: ""
-        image: ghcr.io/kedacore/keda-admission-webhooks:2.10.1
+        image: m.daocloud.io/ghcr.io/kedacore/keda-admission-webhooks:2.10.1
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
@@ -9499,7 +9499,7 @@ spec:
               fieldPath: metadata.namespace
         - name: KEDA_HTTP_DEFAULT_TIMEOUT
           value: ""
-        image: ghcr.io/kedacore/keda-metrics-apiserver:2.10.1
+        image: m.daocloud.io/ghcr.io/kedacore/keda-metrics-apiserver:2.10.1
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
@@ -9593,7 +9593,7 @@ spec:
           value: ""
         - name: KEDA_HTTP_DEFAULT_TIMEOUT
           value: ""
-        image: ghcr.io/kedacore/keda:2.10.1
+        image: m.daocloud.io/ghcr.io/kedacore/keda:2.10.1
         imagePullPolicy: Always
         livenessProbe:
           httpGet:

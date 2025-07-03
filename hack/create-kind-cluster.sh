@@ -26,10 +26,10 @@ REGISTRY_NAME=${REGISTRY_NAME:-"kind-registry"}
 REGISTRY_PORT=${REGISTRY_PORT:-"5001"}
 
 # create registry container unless it already exists
-if [ "$(docker inspect -f '{{.State.Running}}' "${REGISTRY_NAME}" 2>/dev/null || true)" != 'true' ]; then
-  docker run \
+if [ "$(podman inspect -f '{{.State.Running}}' "${REGISTRY_NAME}" 2>/dev/null || true)" != 'true' ]; then
+  podman run \
     -d --restart=always -p "127.0.0.1:${REGISTRY_PORT}:5000" --name "${REGISTRY_NAME}" \
-    docker.io/registry:2
+    m.daocloud.io/docker.io/registry:2
 fi
 
 cat <<EOF | kind create cluster --config=-
@@ -54,14 +54,14 @@ kubeadmConfigPatches:
       dnsDomain: "${CLUSTER_SUFFIX}"
 nodes:
 - role: control-plane
-  image: kindest/node:${NODE_VERSION}@${NODE_SHA}
+  image: m.daocloud.io/docker.io/kindest/node:${NODE_VERSION}@${NODE_SHA}
 - role: worker
-  image: kindest/node:${NODE_VERSION}@${NODE_SHA}
+  image: m.daocloud.io/docker.io/kindest/node:${NODE_VERSION}@${NODE_SHA}
 EOF
 
 # connect the registry to the cluster network if not already connected
-if [ "$(docker inspect -f='{{json .NetworkSettings.Networks.kind}}' "${REGISTRY_NAME}")" = 'null' ]; then
-  docker network connect "kind" "${REGISTRY_NAME}"
+if [ "$(podman inspect -f='{{json .NetworkSettings.Networks.kind}}' "${REGISTRY_NAME}")" = 'null' ]; then
+  podman network connect "kind" "${REGISTRY_NAME}"
 fi
 
 # Document the local registry
